@@ -1,0 +1,58 @@
+<h3>Clinical Groups</h3>
+<ng-template #treeNode let-node="node">
+  <div class="node-item" [attr.data-id]="node.id" [attr.id]="'node-'+node.id">
+    <div class="node-title" (click)="node.isExpanded=!node.isExpanded;">
+      {{node.children.length ? (node.isExpanded?'-&nbsp;':'+') : '&nbsp;&nbsp;&nbsp;'}} &nbsp;&nbsp;&nbsp; {{node.id}} 
+      <span class="item-notes">
+        <span class="actionMenu" (click)="resetAllActionMenu();node.isActionMenuClicked = !node.isActionMenuClicked;">&#xFE19;</span>
+      </span>
+      <div *ngIf="node.isActionMenuClicked" class="actionMenuItems">
+          <ul>
+            <li> <i (click)="dialog.showModal(); groupAction('add')" class="fa fa-plus">Add</i></li>
+            <li> <i class="fa fa-trash" (click)="dialog.showModal();groupAction('removal')">Remove</i></li>
+          </ul>
+      </div>
+    </div>
+    <dialog #dialog class="diaglog-box">
+      <h5>{{groupActionType === 'add' ? 'Add Group' : 'Remove Group' }}</h5>
+      <div *ngIf="groupActionType === 'add'; else removalGroupItem">
+        <label>Please enter the group name</label> &nbsp;&nbsp;&nbsp;
+        <input type="text" id="groupName" name="groupName" [(ngModel)]="groupName" />
+      </div>
+      <ng-template #removalGroupItem>
+        <label>Are you sure to delete the group?</label>
+      </ng-template>
+      <div class="diaglog-footer">
+        <button class="action-button" (click)="dialog.close(); groupActionType === 'add' ? addNewGoupItem(node) : removeGroupItem(node) ">
+          Ok
+        </button>&nbsp;&nbsp;&nbsp;
+        <button class="action-button" (click)="dialog.close();">Cancel</button>
+      </div>
+    </dialog>
+
+    <div *ngIf="node.isExpanded && node.children.length" class="node-children"
+         cdkDropList [cdkDropListData]="node.children"
+         [id]="node.id" [cdkDropListConnectedTo]="dropTargetIds"
+         (cdkDropListDropped)="drop($event)"
+         [cdkDropListSortingDisabled]="true">
+
+      <div *ngFor="let child of node.children" cdkDrag [cdkDragData]="child.id" 
+           (cdkDragMoved)="dragMoved($event)">
+        <ng-container *ngTemplateOutlet="treeNode,context:{node:child}"></ng-container>  
+      </div>
+
+    </div>
+
+  </div>
+</ng-template>
+
+<div cdkDropList [cdkDropListData]="nodes"
+     [id]="'main'" [cdkDropListConnectedTo]="dropTargetIds"
+     (cdkDropListDropped)="drop($event)"
+     [cdkDropListSortingDisabled]="true">
+     
+  <div *ngFor="let node of nodes" cdkDrag [cdkDragData]="node.id"      
+     (cdkDragMoved)="dragMoved($event)">
+    <ng-container *ngTemplateOutlet="treeNode,context:{node:node}"></ng-container>
+  </div>
+</div>

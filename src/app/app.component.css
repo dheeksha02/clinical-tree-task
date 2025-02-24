@@ -1,0 +1,96 @@
+* {
+  font-family: Lato;
+}
+
+.cdk-drag-placeholder {
+    display: none;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2),
+        0 8px 10px 1px rgba(0, 0, 0, 0.14),
+        0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+    background: #fff;
+    opacity: 0.3;
+}
+
+.drop-inside {
+    border: 1px solid #00f;
+}
+
+.drop-before {
+    border-top: 1px solid #00f;
+}
+
+.drop-after {
+    border-bottom: 1px solid #00f;
+}
+
+.node-title {
+  padding:15px;
+  margin: 5px;
+  background: #eee;
+  cursor: grab;
+}
+
+.node-children {
+    position: relative;
+    transition: height 0.2s;
+    margin-left: 40px;
+}
+
+.actionMenu {
+    cursor: pointer !important;
+}
+
+.actionMenuItems {
+    display: inline-block;
+    height: 70px;
+    width: 150px;
+    background: #fff;
+    position: absolute;
+    box-shadow: #eee;
+    padding: 15px;
+    z-index: 1;
+}
+
+.actionMenuItems ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.actionMenuItems li {
+    height: 27px;
+    cursor: pointer !important;
+}
+
+.diaglog-footer {
+    margin-top: 10px;
+}
+
+.actionMenuItems i {
+    display: block;
+}
+
+.fa-plus:before, .fa-trash:before{
+    margin-right: 10px !important;
+}
+
+.diaglog-box {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #BEBEBE;
+}
+
+.action-button {
+    border-radius: 8px;
+    padding: 5px 26px;
+    font-size: 13px;
+    margin: 4px 2px;
+    border: 1px solid #BEBEBE;
+}
